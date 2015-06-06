@@ -3,15 +3,22 @@
 var AguasCalientes = AguasCalientes || (function() {
 	var self = {};
 
+	var margin = 0;
 	var svg = null, 
+		data = null,
 		pack = null,
+		view = null,
+		diameter = null,
+		focus = null,
 		$slider = null,
 		$sliderContainer = null;
 
+	var node, circle;
+
 	function create() {
 		var size = 1;
-		var diameter = $(window).height(),
-		    format = d3.format(",d");
+		var format = d3.format(",d");
+		diameter = $(window).height();		
 				
 		function evaluate(available) {
 			switch(+available) {
@@ -33,9 +40,11 @@ var AguasCalientes = AguasCalientes || (function() {
 		    .attr("transform", "translate(2,2)");
 
 		d3.json("hotWaters.json", function(error, root) {
+			focus = data = root;
 		  var node = svg.datum(root).selectAll(".node")
 		      .data(pack.nodes)
 		    .enter().append("g")
+			  .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); })
 		      .attr("class", function(d) { return d.children ? "node" : evaluate(d.sAvailable); })
 		      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
@@ -49,7 +58,12 @@ var AguasCalientes = AguasCalientes || (function() {
 		      .attr("dy", ".3em")
 		      .style("text-anchor", "middle")
 		      .text(function(d) { return d.name.substring(0, d.r / 3); });
-		});
+
+		 //  d3.select("body")
+		 //      .on("click", function() { zoom(root); });		      
+
+			// zoomTo([root.x, root.y, root.r * 2 + margin]);
+			});			
 
 		//d3.select(self.frameElement).style("height", diameter + "px");		
 	}
@@ -68,16 +82,25 @@ var AguasCalientes = AguasCalientes || (function() {
 			targetScale = $slider.val();
 		var minScale = Math.min(width, height);
 
-		console.log(minScale*targetScale);
+		//console.log(minScale*targetScale);
 
-		// resize frame to match window edges
+		//resize frame to match window edges
 		d3.select('.graph')
 			.attr('width', width)
 			.attr('height', height);
 
-		pack.size([minScale*targetScale, minScale*targetScale]);
-		d3.selectAll('.node circle')
+		svg.selectAll('circle')
 			.attr("r", function(d) { return d.r * targetScale; });
+
+		svg.selectAll('.node')	
+			.attr("transform", function(d) { 
+				
+				return "translate(" + (d.x) * targetScale + "," + (d.y) * targetScale + ")";
+			});
+
+				//return "translate(" + 
+				//	(d.x * targetScale - d.r) + "," 
+				//	+ (d.y * targetScale - d.r) + ")"; });
 
 		$sliderContainer.find('span').html(targetScale + 'x');
 	}
