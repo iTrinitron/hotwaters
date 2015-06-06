@@ -1,35 +1,10 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-
-circle {
-  fill: rgb(31, 119, 180);
-  fill-opacity: .25;
-  stroke: rgb(31, 119, 180);
-  stroke-width: 1px;
-}
-
-.leaf circle {
-  fill-opacity: 1;
-}
-
-.yes circle {
-	fill: yellow;
-}
-
-.no circle {
-	fill: red;
-}
-
-.uh circle {
-	fill: gray;
-}
-
-text {
-  font: 10px sans-serif;
-}
-
-</style>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Aguas Calientes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
@@ -78,3 +53,5 @@ d3.select(self.frameElement).style("height", diameter + "px");
 
 //.attr("class", function(d) { return d.children ? "node" : "leaf node"; })
 </script>
+</body>
+</html>

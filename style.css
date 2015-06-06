@@ -1,0 +1,27 @@
+
+circle {
+  fill: rgb(31, 119, 180);
+  fill-opacity: .25;
+  stroke: rgb(31, 119, 180);
+  stroke-width: 1px;
+}
+
+.leaf circle {
+  fill-opacity: 1;
+}
+
+.yes circle {
+	fill: yellow;
+}
+
+.no circle {
+	fill: red;
+}
+
+.uh circle {
+	fill: gray;
+}
+
+text {
+  font: 10px sans-serif;
+}
