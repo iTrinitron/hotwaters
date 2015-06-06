@@ -3,7 +3,7 @@ body, html {
 	padding: 0;
 }
 body {
-	background: #94CAD1
+	background: #EDD072;
 }
 
 #resizer {
@@ -23,30 +23,36 @@ body {
  ********/
 circle {
   fill: #FFF;
-  fill-opacity: .25;
-  stroke: rgb(31, 119, 180);
-  stroke-width: 1px;
+  fill-opacity: .1;
+/*  stroke: rgb(31, 119, 180);
+  stroke-width: 1px;*/
 }
 
 .leaf circle {
   fill-opacity: 1;
 }
 
+.yes circle, .no circle, .uh circle {
+	stroke: #78614E	
+}
+
 .yes circle {
-	fill: #A2E0AA;
-	stroke: #333;
+	fill: #ED744C;
 }
 .yes text{
+	stroke: #FFF;
 
 }
 
 .no circle {
-	fill: #F0DE8D;
+	fill: #769AA8;
 }
-
+.no text {
+	stroke: #A2CBDB;
+}
 .uh circle {
 	stroke: #666;
-	fill: #999;
+	fill: #85726A;
 }
 .uh text {
 	stroke: #DDD;

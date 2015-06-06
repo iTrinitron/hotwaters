@@ -15,6 +15,7 @@ var AguasCalientes = AguasCalientes || (function() {
 
 	var node, circle;
 
+	var translation = { x: 0, y: 0 };
 	function create() {
 		var size = 1;
 		var format = d3.format(",d");
@@ -37,14 +38,25 @@ var AguasCalientes = AguasCalientes || (function() {
 		    .attr("width", diameter)
 		    .attr("height", diameter)
 		  .append("g")
-		    .attr("transform", "translate(2,2)");
+		  	.attr('class', 'wrapper')
+		    .attr("transform", "translate(0,0)");
+
+		var drag = d3.behavior.drag()
+			.on('drag', function() {
+				var e = d3.event;
+				translation.x += e.dx;
+				translation.y += e.dy;
+				console.log(translation);
+				d3.select('.wrapper')
+					.attr('transform', 'translate(' + translation.x + ',' + translation.y +')');
+			});
+		svg.call(drag);		    
 
 		d3.json("hotWaters.json", function(error, root) {
 			focus = data = root;
 		  var node = svg.datum(root).selectAll(".node")
 		      .data(pack.nodes)
 		    .enter().append("g")
-			  .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); })
 		      .attr("class", function(d) { return d.children ? "node" : evaluate(d.sAvailable); })
 		      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
