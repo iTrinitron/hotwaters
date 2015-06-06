@@ -6,52 +6,15 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+<div id="resizer">
+  <input type="range" min="1" max="5" value="1.5" step="0.25" />
+  <strong>Scale:</strong> <span>1.5x</span>
+</div>
+
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script>
-var size = 1;
-var diameter = 1960,
-    format = d3.format(",d");
-		
-function evaluate(available) {
-	switch(parseInt(available)) {
-		case 1: return "yes leaf node";
-		case 0: return "no leaf node";
-		default: return "uh leaf node";
-	}
-}
+<script src="master.js"></script>
 
-var pack = d3.layout.pack()
-    .size([diameter - 4, diameter - 4])
-    .value(function(d) { return size; });
-
-var svg = d3.select("body").append("svg")
-    .attr("width", diameter)
-    .attr("height", diameter)
-  .append("g")
-    .attr("transform", "translate(2,2)");
-
-d3.json("hotWaters.json", function(error, root) {
-  var node = svg.datum(root).selectAll(".node")
-      .data(pack.nodes)
-    .enter().append("g")
-      .attr("class", function(d) { return d.children ? "node" : evaluate(d.sAvailable); })
-      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-
-  node.append("title")
-      .text(function(d) { return d.name + (d.children ? "" : ": " + format(size)); });
-
-  node.append("circle")
-      .attr("r", function(d) { return d.r; });
-
-  node.filter(function(d) { return !d.children; }).append("text")
-      .attr("dy", ".3em")
-      .style("text-anchor", "middle")
-      .text(function(d) { return d.name.substring(0, d.r / 3); });
-});
-
-d3.select(self.frameElement).style("height", diameter + "px");
-
-//.attr("class", function(d) { return d.children ? "node" : "leaf node"; })
-</script>
 </body>
 </html>

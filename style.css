@@ -1,6 +1,28 @@
+body, html {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background: #94CAD1
+}
 
+#resizer {
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 10px;
+	position: fixed;
+		top: 1em;
+		left: 1em;
+	padding: 1em;
+}
+#resizer input {
+	display: block;
+}
+
+/** 
+ * D3 
+ ********/
 circle {
-  fill: rgb(31, 119, 180);
+  fill: #FFF;
   fill-opacity: .25;
   stroke: rgb(31, 119, 180);
   stroke-width: 1px;
@@ -11,15 +33,23 @@ circle {
 }
 
 .yes circle {
-	fill: yellow;
+	fill: #A2E0AA;
+	stroke: #333;
+}
+.yes text{
+
 }
 
 .no circle {
-	fill: red;
+	fill: #F0DE8D;
 }
 
 .uh circle {
-	fill: gray;
+	stroke: #666;
+	fill: #999;
+}
+.uh text {
+	stroke: #DDD;
 }
 
 text {
