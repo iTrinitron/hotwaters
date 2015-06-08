@@ -93,7 +93,7 @@ var AguasCalientes = AguasCalientes || (function() {
 		  node.filter(function(d) { return !d.children; }).append("text")
 		      .attr("dy", ".3em")
 		      .style("text-anchor", "middle")
-		      .text(function(d) { return d.name.substring(0, d.r / 3); });	  
+		      .text(function(d) { return d.name.substring(0, 5); });	  
 
 		 //  d3.select("body")
 		 //      .on("click", function() { zoom(root); });		      

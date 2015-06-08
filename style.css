@@ -96,17 +96,28 @@ circle {
 	stroke: #888;
 }
 
+small {
+	font-size: 12px;
+	font-weight: bold;
+	color: gray;
+}
+
 text {
   font: 10px sans-serif;
 }
 
 #toggleData {
-	background: rgba(255, 255, 255, 1.0);
+	background: rgba(111, 111, 111, 1.0);
 	border-radius: 10px;
 	text-align: center;
 	margin-top: 15px;
+	color: #bdc3c7;
+	height: 25px;
+	line-height: 24px;
 	cursor: pointer;
 }
+
+
 
 #currentState {
 	text-align: center;
