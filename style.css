@@ -18,6 +18,31 @@ body {
 	display: block;
 }
 
+#legend {
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 10px;
+	position: fixed;
+		top: 9em;
+		left: 1em;
+	padding: 1em;
+	font-weight: bold;
+}
+
+#legend #blue {
+	color: #ED744C;
+}
+
+#legend #red{
+	color: #769AA8;
+}
+
+#legend #gray {
+	color: #444;
+}
+
+#colors {
+}
+
 /** 
  * D3 
  ********/
