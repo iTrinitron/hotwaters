@@ -3,7 +3,10 @@
 var AguasCalientes = AguasCalientes || (function() {
 	var self = {};
 
-	var margin = 0;
+	var margin = 0,
+			scale = 1;
+	var offset = {x: 0, y: 0},
+		center = {x: 0, y: 0};
 	var svg = null, 
 		data = null,
 		pack = null,
@@ -15,11 +18,19 @@ var AguasCalientes = AguasCalientes || (function() {
 
 	var node, circle;
 
-	var translation = { x: 0, y: 0 };
+	function calculateCenter() {
+		offset.x = Math.max(0, ($(window).width() - $(window).height()) / 2);
+		offset.y = Math.max(0, ($(window).height() - $(window).width()) / 2 );
+		center = {
+			x: $(window).width()/2,
+			y: $(window).height()/2
+		}; 
+	}
+
 	function create() {
 		var size = 1;
 		var format = d3.format(",d");
-		diameter = $(window).height();		
+		diameter = $(window).height();
 				
 		function evaluate(available) {
 			switch(+available) {
@@ -33,22 +44,25 @@ var AguasCalientes = AguasCalientes || (function() {
 		    .size([diameter, diameter])
 		    .value(function(d) { return size; });
 
+		calculateCenter();
 		svg = d3.select("body").append("svg")
 			.attr('class', 'graph')
 		    .attr("width", diameter)
 		    .attr("height", diameter)
 		  .append("g")
 		  	.attr('class', 'wrapper')
-		    .attr("transform", "translate(0,0)");
+		  	.attr("transform", "translate(" + offset.x + "," + offset.y + ")");
+
+		// var center = calculateCenter();
 
 		var drag = d3.behavior.drag()
 			.on('drag', function() {
 				var e = d3.event;
-				translation.x += e.dx;
-				translation.y += e.dy;
-				console.log(translation);
+				offset.x += e.dx;
+				offset.y += e.dy;
+				//console.log(center);
 				d3.select('.wrapper')
-					.attr('transform', 'translate(' + translation.x + ',' + translation.y +')');
+					.attr('transform', 'translate(' + (offset.x) + ',' + (offset.y) +')');
 			});
 		svg.call(drag);		    
 
@@ -69,7 +83,7 @@ var AguasCalientes = AguasCalientes || (function() {
 		  node.filter(function(d) { return !d.children; }).append("text")
 		      .attr("dy", ".3em")
 		      .style("text-anchor", "middle")
-		      .text(function(d) { return d.name.substring(0, d.r / 3); });
+		      .text(function(d) { return d.name.substring(0, d.r / 3); });	  
 
 		 //  d3.select("body")
 		 //      .on("click", function() { zoom(root); });		      
@@ -85,13 +99,24 @@ var AguasCalientes = AguasCalientes || (function() {
 		updateSlider();
 	}
 
+	function onResize() {
+		calculateCenter();
+		render();
+	}
+
+	function updateCenter() {
+
+	}
+
 	function updateSlider() {
 		//render();
 
-		var val = $slider.val();	
+		var oldScale = scale;
 		var width = $(window).width(),
-			height = $(window).height(),
-			targetScale = $slider.val();
+			height = $(window).height();
+
+		scale = $slider.val();
+		var ratio = scale / oldScale;
 		var minScale = Math.min(width, height);
 
 		//console.log(minScale*targetScale);
@@ -102,19 +127,27 @@ var AguasCalientes = AguasCalientes || (function() {
 			.attr('height', height);
 
 		svg.selectAll('circle')
-			.attr("r", function(d) { return d.r * targetScale; });
+			.attr("r", function(d) { return d.r * scale; });
 
 		svg.selectAll('.node')	
 			.attr("transform", function(d) { 
-				
-				return "translate(" + (d.x) * targetScale + "," + (d.y) * targetScale + ")";
+				return "translate(" + (d.x) * scale + "," + (d.y) * scale + ")";
 			});
+
+		console.log(diameter/4*scale + ", " + diameter/4*oldScale);
+		var difference = (diameter/4*scale) - (diameter/4*oldScale);
+		offset.x -= difference;
+		offset.y -= difference;
+		d3.select('.wrapper')
+			.attr('transform', function(d) {
+				return 'translate(' + offset.x + ',' + offset.y +')';
+			})
 
 				//return "translate(" + 
 				//	(d.x * targetScale - d.r) + "," 
 				//	+ (d.y * targetScale - d.r) + ")"; });
 
-		$sliderContainer.find('span').html(targetScale + 'x');
+		$sliderContainer.find('span').html(scale + 'x');
 	}
 
 	function initControls() {
@@ -129,11 +162,11 @@ var AguasCalientes = AguasCalientes || (function() {
 
 		$sliderContainer = $('#resizer');
 		$slider = $('#resizer input');
-		render();
 
 		initControls();
+		render();		
 
-		$(window).resize(render);
+		$(window).resize(onResize);
 	}
 
 	return self;

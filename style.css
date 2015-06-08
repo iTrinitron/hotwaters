@@ -23,9 +23,9 @@ body {
  ********/
 circle {
   fill: #FFF;
-  fill-opacity: .1;
-/*  stroke: rgb(31, 119, 180);
-  stroke-width: 1px;*/
+  fill-opacity: .25;
+  stroke: #999999;
+  stroke-width: 1px;
 }
 
 .leaf circle {
@@ -52,10 +52,10 @@ circle {
 }
 .uh circle {
 	stroke: #666;
-	fill: #85726A;
+	fill: #444;
 }
 .uh text {
-	stroke: #DDD;
+	stroke: #888;
 }
 
 text {
