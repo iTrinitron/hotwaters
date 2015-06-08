@@ -2,8 +2,17 @@ body, html {
 	margin: 0;
 	padding: 0;
 }
+
+@font-face {
+  font-family: 'BebasNeue';
+  font-style: normal;
+  font-weight: normal;
+  src: url('BebasNeue Bold.otf') format("opentype");
+}
+
 body {
 	background: #EDD072;
+	font-family: 'Lato', sans-serif;
 }
 
 #resizer {
@@ -26,6 +35,10 @@ body {
 		left: 1em;
 	padding: 1em;
 	font-weight: bold;
+}
+
+#currentState {
+	font-family: 'BebasNeue';
 }
 
 #legend #blue {
