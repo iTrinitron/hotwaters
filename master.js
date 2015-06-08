@@ -1,5 +1,9 @@
 "use strict";
 
+$(".node").hover() {
+	
+}
+
 var AguasCalientes = AguasCalientes || (function() {
 	var self = {};
 
@@ -32,7 +36,17 @@ var AguasCalientes = AguasCalientes || (function() {
 		var format = d3.format(",d");
 		diameter = $(window).height();
 				
-		function evaluate(available) {
+		function evaluate(d) {
+			var available;
+			if(isFederal) {
+				$("#currentState").html("Federal Data");
+				available = d.fAvailable
+			}
+			else {
+				available = d.sAvailable
+				$("#currentState").html("State Data");
+			}
+			
 			switch(+available) {
 				case 1: return "yes leaf node";
 				case 0: return "no leaf node";
@@ -71,7 +85,7 @@ var AguasCalientes = AguasCalientes || (function() {
 		  var node = svg.datum(root).selectAll(".node")
 		      .data(pack.nodes)
 		    .enter().append("g")
-		      .attr("class", function(d) { return d.children ? "node" : evaluate(d.sAvailable); })
+		      .attr("class", function(d) { return d.children ? "node" : evaluate(d); })
 		      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
 		  node.append("title")
@@ -172,6 +186,14 @@ var AguasCalientes = AguasCalientes || (function() {
 
 	return self;
 })();
+
+var isFederal = false;
+
+function changeData() {
+	isFederal = !isFederal;
+	$('.graph').remove();
+	AguasCalientes.init();
+}
 
 $(document).ready(function() {
 	AguasCalientes.init();

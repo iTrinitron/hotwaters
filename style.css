@@ -61,3 +61,16 @@ circle {
 text {
   font: 10px sans-serif;
 }
+
+#toggleData {
+	background: rgba(255, 255, 255, 1.0);
+	border-radius: 10px;
+	text-align: center;
+	margin-top: 15px;
+	cursor: pointer;
+}
+
+#currentState {
+	text-align: center;
+	font-size: 45px;
+}
