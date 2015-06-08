@@ -134,8 +134,9 @@ var AguasCalientes = AguasCalientes || (function() {
 				return "translate(" + (d.x) * scale + "," + (d.y) * scale + ")";
 			});
 
-		console.log(diameter/4*scale + ", " + diameter/4*oldScale);
-		var difference = (diameter/4*scale) - (diameter/4*oldScale);
+		// TODO: when scaling a circle, the new center should be (-difference, +difference). 
+		// but how to account for offset?? idk
+		var difference = ((diameter/2*scale) - (diameter/2*oldScale)) / 2;
 		offset.x -= difference;
 		offset.y -= difference;
 		d3.select('.wrapper')
