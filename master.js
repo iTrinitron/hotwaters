@@ -42,10 +42,12 @@ var AguasCalientes = AguasCalientes || (function() {
 				available = d.sAvailable
 				$("#currentState").html("State Data");
 			}
-			
+
 			switch(+available) {
 				case 1: return "yes leaf node";
 				case 0: return "no leaf node";
+				case 3: return "blank leaf node";
+				case 4: return "uh leaf node";
 				default: return "uh leaf node";
 			}
 		}
@@ -89,6 +91,7 @@ var AguasCalientes = AguasCalientes || (function() {
 
 		  node.append("circle")
 		      .attr("r", function(d) { return d.r; });
+
 
 		  node.filter(function(d) { return !d.children; }).append("text")
 		      .attr("dy", ".3em")

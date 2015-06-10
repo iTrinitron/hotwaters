@@ -42,15 +42,19 @@ body {
 }
 
 #legend #blue {
-	color: #ED744C;
+	color: #769AA8;
 }
 
 #legend #red{
-	color: #769AA8;
+	color: #ED744C;
 }
 
 #legend #gray {
 	color: #444;
+}
+
+#legend #blankColor {
+	color: #7f8c8d;
 }
 
 #colors {
@@ -70,7 +74,7 @@ circle {
   fill-opacity: 1;
 }
 
-.yes circle, .no circle, .uh circle {
+.yes circle, .no circle, .uh circle, .blank circle {
 	stroke: #78614E	
 }
 
@@ -79,7 +83,13 @@ circle {
 }
 .yes text{
 	stroke: #FFF;
+}
 
+.blank circle {
+	fill: #7f8c8d;
+}
+.blank text{
+	stroke: #FFF;
 }
 
 .no circle {
